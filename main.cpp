@@ -17,7 +17,7 @@ private:
     double learning_rate = 0.1; // Скорость обучения
     int epochs = 1000; // Количество эпох
 
-    string stem(string word) {
+    static string stem(string word) {
         if (word.length() > 5) {
             if (word.substr(word.length() - 2) == "ый") {
                 return word.substr(0, word.length() - 2);
@@ -32,12 +32,12 @@ private:
         return word;
     }
 
-    string normalize(string& word) {
-        transform(word.begin(), word.end(), word.begin(), ::tolower);
+    static string normalize(string& word) {
+        ranges::transform(word, word.begin(), ::tolower);
         return stem(word);
     }
 
-    double sigmoid(double z) {
+    static double sigmoid(const double z) {
         return 1.0 / (1.0 + exp(-z));
     }
 
@@ -117,24 +117,25 @@ void readCSV(const string& filename, vector<string>& texts, vector<double>& labe
     }
 }
 
-int main(int argc, char* argv[]) {
+int main() {
     system("chcp 65001");
     setlocale(LC_CTYPE, "ru_RU.UTF-8");
 
-    vector<string> texts;
-    vector<double> labels;
+    // vector<string> texts;
+    // vector<double> labels;
+    //
+    // readCSV("./data.csv", texts, labels);
+    //
+    // LogisticRegressor model;
+    // model.fit(texts, labels);
+    //
+    // if (argc > 1) {
+    //     string t = argv[1];
+    //     cout << argv[1] << endl;
+    // } else {
+    //     cout << "Arg is empty.";
+    // }
 
-    readCSV("./data.csv", texts, labels);
-
-    LogisticRegressor model;
-    model.fit(texts, labels);
-
-    if (argc > 1) {
-        string t = argv[1];
-        cout << model.predict(t) << endl;
-    } else {
-        cout << "Arg is empty.";
-    }
-
+    system("pause");
     return 0;
 }
