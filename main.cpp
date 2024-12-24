@@ -7,7 +7,6 @@
 #include <cmath>
 #include <locale>
 #include <algorithm>
-#include <codecvt>
 
 using namespace std;
 
@@ -19,7 +18,6 @@ private:
     int epochs = 1000; // Количество эпох
 
     string stem(string word) {
-        // Убираем некоторые распространенные окончания
         if (word.length() > 5) {
             if (word.substr(word.length() - 2) == "ый") {
                 return word.substr(0, word.length() - 2);
@@ -31,31 +29,27 @@ private:
                 return word.substr(0, word.length() - 3);
             }
         }
-        return word; // Если не подошло, возвращаем слово как есть
+        return word;
     }
 
-    // Нормализация строки (приводим к нижнему регистру)
     string normalize(string& word) {
-        transform(word.begin(), word.end(), word.begin(), ::tolower); // Приводим к нижнему регистру
-        return stem(word); // Применяем стемминг
+        transform(word.begin(), word.end(), word.begin(), ::tolower);
+        return stem(word);
     }
 
-    // Сигмоидная функция
     double sigmoid(double z) {
         return 1.0 / (1.0 + exp(-z));
     }
 
 public:
-    // Обучение
     void fit(vector<string>& texts, vector<double>& labels) {
         size_t n = texts.size();
 
-        // Инициализация весов
         for (const auto& text : texts) {
             stringstream ss(text);
             string word;
             while (ss >> word) {
-                weights[normalize(word)] = 0.0; // Инициализируем вес слова
+                weights[normalize(word)] = 0.0;
             }
         }
 
@@ -66,13 +60,11 @@ public:
                 string word;
                 while (ss >> word) {
                     word = normalize(word);
-                    prediction += weights.count(word) ? weights[word] : 0.0; // Добавляем вес слова
+                    prediction += weights.count(word) ? weights[word] : 0.0;
                 }
 
-                // Применяем сигмоидную функцию
                 double prob = sigmoid(prediction);
 
-                // Обновление весов и смещения
                 double error = labels[i] - prob;
                 bias += learning_rate * error;
 
@@ -81,24 +73,22 @@ public:
                 while (ss >> word) {
                     word = normalize(word);
                     if (weights.count(word)) {
-                        weights[word] += learning_rate * error; // Обновляем вес слова
+                        weights[word] += learning_rate * error;
                     }
                 }
             }
         }
     }
 
-    // Предсказание
     int predict(string& text) {
         double prediction = bias;
         stringstream ss(text);
         string word;
         while (ss >> word) {
             word = normalize(word);
-            prediction += weights.count(word) ? weights[word] : 0.0; // Добавляем вес слова, если он есть
+            prediction += weights.count(word) ? weights[word] : 0.0;
         }
 
-        // Применяем сигмоидную функцию и округляем до 0 или 1
         return sigmoid(prediction) >= 0.5 ? 1 : 0;
     }
 };
@@ -108,24 +98,22 @@ void readCSV(const string& filename, vector<string>& texts, vector<double>& labe
     string line;
 
     if (!file.is_open()) {
-        cerr << "Не удалось открыть файл: " << filename << endl;
+        cerr << "File error: " << filename << endl;
         return;
     }
 
-    getline(file, line); // Пропускаем заголовок
+    getline(file, line);
 
     while (getline(file, line)) {
         stringstream ss(line);
         string text;
         string labelStr;
 
-        getline(ss, text, ','); // Читаем текст до запятой
-        getline(ss, labelStr, ','); // Читаем метку после запятой
-
-        cout << "Текст: " << text << ", Метка: " << labelStr << endl; // Выводим текст и метку для проверки
+        getline(ss, text, ',');
+        getline(ss, labelStr, ',');
 
         texts.push_back(text);
-        labels.push_back(stod(labelStr)); // Преобразуем строку в double
+        labels.push_back(stod(labelStr));
     }
 }
 
@@ -143,13 +131,9 @@ int main(int argc, char* argv[]) {
 
     if (argc > 1) {
         string t = argv[1];
-        cout << "Предсказанное значение для '" << t.c_str() << "': " << model.predict(t) << endl;
+        cout << model.predict(t) << endl;
     } else {
-        string t = "плохо";
-        cout << "Предсказанное значение для 'плохо': " << model.predict(t) << endl;
-
-        string t2 = "хорошо";
-        cout << "Предсказанное значение для 'хорошо': " << model.predict(t2) << endl;
+        cout << "Arg is empty.";
     }
 
     return 0;
