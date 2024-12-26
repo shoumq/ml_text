@@ -1,3 +1,3 @@
-D:/Coding/cpp/mltext/cmake-build-debug/CMakeFiles/mltext.dir
-D:/Coding/cpp/mltext/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Coding/cpp/mltext/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/mac/Documents/codding/cppt/ml_text/cmake-build-debug/CMakeFiles/mltext.dir
+/Users/mac/Documents/codding/cppt/ml_text/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/mac/Documents/codding/cppt/ml_text/cmake-build-debug/CMakeFiles/rebuild_cache.dir
