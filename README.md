@@ -18,7 +18,7 @@
 <br />
 <br />
 
-▎Функции
+▎Методы
 
 • void fit(vector<string>& texts, vector<double>& labels): Обучает модель на заданных текстах и метках. 
 
@@ -32,7 +32,7 @@
 <br />
 <br />
 
-▎Функции
+▎Методы
 
 • void fit(vector<vector<double>>& X, const vector<double>& y, int n_estimators): Обучает модель на заданных признаках и метках.
 
