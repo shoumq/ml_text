@@ -53,6 +53,4 @@ public:
     }
 };
 
-
-
 #endif //GRADIENTBOOSTING_H

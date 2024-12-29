@@ -13,6 +13,7 @@
 #include <cmath>
 #include <locale>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -23,20 +24,33 @@ private:
     double learning_rate = 0.1; // Скорость обучения
     int epochs = 1000; // Количество эпох
 
-    static string stem(string word) {
-        if (word.length() > 5) {
-            if (word.substr(word.length() - 2) == "ый") {
-                return word.substr(0, word.length() - 2);
+    static string stem(string& word) {
+        // Приводим слово к нижнему регистру
+        string normalized = word;
+        transform(normalized.begin(), normalized.end(), normalized.begin(), ::tolower);
+
+        vector<string> s1 = {"а", "о", "ы", "и"};
+        vector<string> s2 = {"ая", "ой", "ий", "ого", "ую", "ем", "ет"};
+
+        cout << (normalized.substr(normalized.length() - 3)) << endl;
+
+        if (normalized.length() >= 4) {
+            for (const auto & i : s1) {
+                if (normalized.substr(normalized.length() - 2) == i) {
+                    normalized = normalized.substr(0, normalized.length() - 2);
+                }
             }
-            else if (word.substr(word.length() - 3) == "ая") {
-                return word.substr(0, word.length() - 3);
-            }
-            else if (word.substr(word.length() - 3) == "ое") {
-                return word.substr(0, word.length() - 3);
+
+            for (const auto & i : s2) {
+                if (normalized.substr(normalized.length() - 3) == i) {
+                    normalized = normalized.substr(0, normalized.length() - 3);
+                }
             }
         }
-        return word;
+
+        return normalized;
     }
+
 
     static string normalize(string& word) {
         ranges::transform(word, word.begin(), ::tolower);
@@ -51,6 +65,8 @@ public:
     void fit(vector<string>& texts, vector<double>& labels) {
         size_t n = texts.size();
 
+        // Инициализация весов. Временная слодожность O(n * m)
+        // где n - количество текстов, m - количество слов в тексте
         for (const auto& text : texts) {
             stringstream ss(text);
             string word;
@@ -59,6 +75,8 @@ public:
             }
         }
 
+        // Обучение. Временная сложность O(n * m * epochs)
+        // где n - количество текстов, m - количество слов в тексте, epochs - количество эпох
         for (int epoch = 0; epoch < epochs; ++epoch) {
             for (size_t i = 0; i < n; ++i) {
                 double prediction = bias;
@@ -86,6 +104,8 @@ public:
         }
     }
 
+    // Предсказывание. Временная сложность O(m)
+    // где m - количество слов в тексте
     int predict(string& text) {
         double prediction = bias;
         stringstream ss(text);
@@ -98,8 +118,5 @@ public:
         return sigmoid(prediction) >= 0.5 ? 1 : 0;
     }
 };
-
-
-
 
 #endif //LOGISTICREGRESSOR_H
