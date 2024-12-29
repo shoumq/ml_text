@@ -24,26 +24,31 @@ private:
     double learning_rate = 0.1; // Скорость обучения
     int epochs = 1000; // Количество эпох
 
+    // Временная сложность O(m ⋅ n),
+    // где m - количество окончаний, n - длина слова
     static string stem(string& word) {
-        // Приводим слово к нижнему регистру
         string normalized = word;
         transform(normalized.begin(), normalized.end(), normalized.begin(), ::tolower);
 
-        vector<string> s1 = {"а", "о", "ы", "и"};
-        vector<string> s2 = {"ая", "ой", "ий", "ого", "ую", "ем", "ет"};
+        const vector<string> s1 = {"а", "о", "ы", "и"};
+        const vector<string> s2 = {"ая", "ой", "ий", "ого", "ую", "ем", "ет"};
 
-        cout << (normalized.substr(normalized.length() - 3)) << endl;
-
-        if (normalized.length() >= 4) {
-            for (const auto & i : s1) {
-                if (normalized.substr(normalized.length() - 2) == i) {
-                    normalized = normalized.substr(0, normalized.length() - 2);
+        size_t len = normalized.length();
+        if (len >= 4) {
+            for (const auto & suffix : s2) {
+                size_t suffix_length = suffix.length();
+                if (len >= suffix_length && normalized.compare(len - suffix_length, suffix_length, suffix) == 0) {
+                    normalized.erase(len - suffix_length);
+                    len -= suffix_length;
+                    break;
                 }
             }
 
-            for (const auto & i : s2) {
-                if (normalized.substr(normalized.length() - 3) == i) {
-                    normalized = normalized.substr(0, normalized.length() - 3);
+            for (const auto & suffix : s1) {
+                size_t suffix_length = suffix.length();
+                if (len >= suffix_length && normalized.compare(len - suffix_length, suffix_length, suffix) == 0) {
+                    normalized.erase(len - suffix_length);
+                    break;
                 }
             }
         }
