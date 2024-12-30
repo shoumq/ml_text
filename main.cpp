@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
     vector<string> texts;
     vector<double> labels;
 
-    readCSV("./data.csv", texts, labels);
+    readCSV("../data.csv", texts, labels);
 
     LogisticRegressor model;
     model.fit(texts, labels);
@@ -55,8 +55,8 @@ int main(int argc, char* argv[]) {
 
     gb_model.fit(feature_vectors, labels, 10); // Обучаем градиентный бустинг
 
-    if (argc > 1) {
-        string t = argv[1];
+    if (const char* varEnv = getenv("VAR_TEXT")) {
+        string t = varEnv;
         vector<double> test_features(1);
         test_features[0] = model.predict(t); // Получаем вектор признаков для тестовой строки
         cout << gb_model.predict(test_features) << endl;

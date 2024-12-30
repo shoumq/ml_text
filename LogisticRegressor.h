@@ -32,8 +32,6 @@ private:
         vector<string> s1 = {"а", "о", "ы", "и"};
         vector<string> s2 = {"ая", "ой", "ий", "ого", "ую", "ем", "ет"};
 
-        cout << (normalized.substr(normalized.length() - 3)) << endl;
-
         if (normalized.length() >= 4) {
             for (const auto & i : s1) {
                 if (normalized.substr(normalized.length() - 2) == i) {

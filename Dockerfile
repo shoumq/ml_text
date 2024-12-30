@@ -22,6 +22,8 @@ WORKDIR /app
 # Копируем файлы проекта в контейнер
 COPY . .
 
+COPY data.csv ./data.csv
+
 # Создаем каталог для сборки
 RUN mkdir build
 
