@@ -40,3 +40,12 @@
 • void fit(vector<vector<double>>& X, const vector<double>& y, int n_estimators): Обучает модель на заданных признаках и метках.
 
 • int predict(vector<double> &features): Предсказывает класс для входных признаков.
+<br />
+<br />
+### Запуск
+```
+docker build -t mltext .
+```
+```
+docker run -e VAR_TEXT="ваш текст" . mltext
+```
