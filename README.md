@@ -20,9 +20,12 @@
 
 ▎Методы
 
-• void fit(vector<string>& texts, vector<double>& labels): Обучает модель на заданных текстах и метках. 
+• void fit(vector<string>& texts, vector<double>& labels): Обучает модель на заданных текстах и метках.)<br />
+Инициализация весов. Временная слодожность O(n * m)<br />
+Обучение. Временная сложность O(n * m * epochs)<br />
 
-• int predict(string& text): Предсказывает класс для входного текста.
+• int predict(string& text): Предсказывает класс для входного текста.<br />
+Временная сложность O(m)
 <br />
 <br />
 <br />

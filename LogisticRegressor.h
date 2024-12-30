@@ -25,17 +25,25 @@ private:
     int epochs = 1000; // Количество эпох
 
     static string stem(string& word) {
+        // Приводим слово к нижнему регистру
         string normalized = word;
         transform(normalized.begin(), normalized.end(), normalized.begin(), ::tolower);
 
         vector<string> s1 = {"а", "о", "ы", "и"};
         vector<string> s2 = {"ая", "ой", "ий", "ого", "ую", "ем", "ет"};
 
+        cout << (normalized.substr(normalized.length() - 3)) << endl;
+
         if (normalized.length() >= 4) {
             for (const auto & i : s1) {
                 if (normalized.substr(normalized.length() - 2) == i) {
                     normalized = normalized.substr(0, normalized.length() - 2);
-                    break;
+                }
+            }
+
+            for (const auto & i : s2) {
+                if (normalized.substr(normalized.length() - 3) == i) {
+                    normalized = normalized.substr(0, normalized.length() - 3);
                 }
             }
         }
