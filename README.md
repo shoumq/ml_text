@@ -47,5 +47,5 @@
 docker build -t mltext .
 ```
 ```
-docker run -e VAR_TEXT="ваш текст" . mltext
+docker run -e VAR_TEXT="ваш текст" mltext
 ```
