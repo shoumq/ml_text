@@ -20,7 +20,7 @@
 
 ▎Методы
 
-• void fit(vector<string>& texts, vector<double>& labels): Обучает модель на заданных текстах и метках.)<br />
+• void fit(vector<string>& texts, vector<double>& labels): Обучает модель на заданных текстах и метках.<br />
 Инициализация весов. Временная слодожность O(n * m)<br />
 Обучение. Временная сложность O(n * m * epochs)<br />
 
@@ -28,15 +28,10 @@
 Временная сложность O(m)
 <br />
 <br />
-<br />
-
-### GradientBoosting.h
-Мой алгоритм реализует класс GradientBoosting, который использует метод градиентного бустинга для классификации данных. Класс включает в себя простую реализацию дерева решений для построения ансамбля моделей, что позволяет улучшить точность предсказаний.
-<br />
-<br />
-
-▎Методы
-
-• void fit(vector<vector<double>>& X, const vector<double>& y, int n_estimators): Обучает модель на заданных признаках и метках.
-
-• int predict(vector<double> &features): Предсказывает класс для входных признаков.
+### Запуск
+```
+docker build -t mltext .
+```
+```
+docker run -e VAR_TEXT="ваш текст" mltext
+```
