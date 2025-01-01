@@ -1,7 +1,7 @@
 # Используем официальный образ с компилятором C++
 FROM gcc:latest
 
-# Устанавливаем зависимости для CMake
+# Устанавливаем зависимости для CMake и Boost
 RUN apt-get update && \
     apt-get install -y wget build-essential && \
     rm -rf /var/lib/apt/lists/*

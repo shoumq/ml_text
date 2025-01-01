@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 23)
 include_directories(crow)
 
 add_executable(mltext main.cpp
-        LogisticRegressor.cpp
-        LogisticRegressor.h
-        GradientBoosting.cpp
-        GradientBoosting.h)
+        LogisticRegression.cpp
+        LogisticRegression.h
+        crow_all.h
+)

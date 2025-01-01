@@ -3,9 +3,10 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include <algorithm>
-#include "LogisticRegressor.h"
-#include "GradientBoosting.h"
+#include "LogisticRegression.h"
+#include <iostream>
+#include <chrono>
+// #include "crow_all.h"
 
 using namespace std;
 
@@ -33,36 +34,38 @@ void readCSV(const string& filename, vector<string>& texts, vector<double>& labe
     }
 }
 
-int main(int argc, char* argv[]) {
+int main() {
     setlocale(LC_CTYPE, "ru_RU.UTF-8");
 
+    auto start = std::chrono::high_resolution_clock::now();
     vector<string> texts;
     vector<double> labels;
 
     readCSV("../data.csv", texts, labels);
 
-    LogisticRegressor model;
+    LogisticRegression model;
     model.fit(texts, labels);
 
-    GradientBoosting gb_model;
-
-    // Преобразуем текстовые данные в векторные (в данном случае просто создадим векторы из весов)
-    vector<vector<double>> feature_vectors(labels.size(), vector<double>(1));
-
-    for (size_t i = 0; i < labels.size(); ++i) {
-        feature_vectors[i][0] = model.predict(texts[i]); // Используем логистическую регрессию для получения признаков
-    }
-
-    gb_model.fit(feature_vectors, labels, 10); // Обучаем градиентный бустинг
+    // crow::SimpleApp app;
+    //
+    // CROW_ROUTE(app, "/predict/<string>")
+    // ([&model](const crow::request& req, const string &text) {
+    //     double prediction = model.predict(text);
+    //     return crow::response{to_string(prediction)};
+    // });
+    //
+    // app.port(18080).multithreaded().run();
 
     if (const char* varEnv = getenv("VAR_TEXT")) {
         string t = varEnv;
-        vector<double> test_features(1);
-        test_features[0] = model.predict(t); // Получаем вектор признаков для тестовой строки
-        cout << gb_model.predict(test_features) << endl;
+        cout << model.predict(t)<< endl;
     } else {
         cout << "No predicted data" << endl;
     }
+
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> duration = end - start;
+    cout << "Время выполнения: " << duration.count() << " секунд" << std::endl;
 
     return 0;
 }
