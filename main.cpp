@@ -37,7 +37,7 @@ void readCSV(const string& filename, vector<string>& texts, vector<double>& labe
 int main() {
     setlocale(LC_CTYPE, "ru_RU.UTF-8");
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     vector<string> texts;
     vector<double> labels;
 
@@ -65,7 +65,7 @@ int main() {
 
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = end - start;
-    cout << "Время выполнения: " << duration.count() << " секунд" << std::endl;
+    cout << "Время выполнения: " << duration.count() << " секунд" << endl;
 
     return 0;
 }
