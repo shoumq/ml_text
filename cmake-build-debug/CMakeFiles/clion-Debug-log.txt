@@ -1,0 +1,4 @@
+"D:\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=C:\Users\NOVASTORE\.vcpkg-clion\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-mingw-dynamic -G "MinGW Makefiles" -S D:\Coding\cpp\ml_text -B D:\Coding\cpp\ml_text\cmake-build-debug
+-- Configuring done (1.6s)
+-- Generating done (0.3s)
+-- Build files have been written to: D:/Coding/cpp/ml_text/cmake-build-debug
