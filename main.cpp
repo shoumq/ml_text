@@ -1,11 +1,12 @@
-#include "LogisticRegression.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
+#include "LogisticRegression.h"
+#include <iostream>
 #include <chrono>
-//#include "crow_all.h"
+// #include "crow_all.h"
 
 using namespace std;
 
@@ -36,7 +37,7 @@ void readCSV(const string& filename, vector<string>& texts, vector<double>& labe
 int main() {
     setlocale(LC_CTYPE, "ru_RU.UTF-8");
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
     vector<string> texts;
     vector<double> labels;
 
@@ -45,15 +46,15 @@ int main() {
     LogisticRegression model;
     model.fit(texts, labels);
 
-//     crow::SimpleApp app;
-//
-//     CROW_ROUTE(app, "/predict/<string>")
-//     ([&model](const crow::request& req, const string &text) {
-//         double prediction = model.predict(text);
-//         return crow::response{to_string(prediction)};
-//     });
-//
-//     app.port(18080).multithreaded().run();
+    // crow::SimpleApp app;
+    //
+    // CROW_ROUTE(app, "/predict/<string>")
+    // ([&model](const crow::request& req, const string &text) {
+    //     double prediction = model.predict(text);
+    //     return crow::response{to_string(prediction)};
+    // });
+    //
+    // app.port(18080).multithreaded().run();
 
     if (const char* varEnv = getenv("VAR_TEXT")) {
         string t = varEnv;
@@ -64,7 +65,7 @@ int main() {
 
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = end - start;
-    cout << duration.count();
+    cout << "Время выполнения: " << duration.count() << " секунд" << endl;
 
     return 0;
 }
