@@ -21,8 +21,6 @@ private:
     int epochs = 100;
     int lambda = 0.3;
 
-    static string stem(const string &word);
-
     static string normalize(string &word);
 
     static double sigmoid(double z);

@@ -4,10 +4,8 @@
 
 #include "LogisticRegression.h"
 #include <algorithm>
-#include <fstream>
 #include <sstream>
 #include <cmath>
-#include <execution>
 
 
 string LogisticRegression::removeSuffixes(string &word, const vector<string> &suffixes) {
@@ -20,7 +18,7 @@ string LogisticRegression::removeSuffixes(string &word, const vector<string> &su
     return word;
 }
 
-string LogisticRegression::stem(const string &word) {
+string LogisticRegression::normalize(string &word) {
     string normalized = word;
     transform(normalized.begin(), normalized.end(), normalized.begin(), ::tolower);
 
@@ -32,11 +30,6 @@ string LogisticRegression::stem(const string &word) {
     normalized = removeSuffixes(normalized, suffixes);
 
     return normalized.empty() ? "0" : normalized;
-}
-
-string LogisticRegression::normalize(string &word) {
-    transform(word.begin(), word.end(), word.begin(), ::tolower);
-    return stem(word);
 }
 
 double LogisticRegression::sigmoid(double z) {

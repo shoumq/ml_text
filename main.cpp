@@ -1,12 +1,11 @@
+#include "LogisticRegression.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
-#include "LogisticRegression.h"
-#include <iostream>
 #include <chrono>
-// #include "crow_all.h"
+//#include "crow_all.h"
 
 using namespace std;
 
@@ -46,15 +45,15 @@ int main() {
     LogisticRegression model;
     model.fit(texts, labels);
 
-    // crow::SimpleApp app;
-    //
-    // CROW_ROUTE(app, "/predict/<string>")
-    // ([&model](const crow::request& req, const string &text) {
-    //     double prediction = model.predict(text);
-    //     return crow::response{to_string(prediction)};
-    // });
-    //
-    // app.port(18080).multithreaded().run();
+//     crow::SimpleApp app;
+//
+//     CROW_ROUTE(app, "/predict/<string>")
+//     ([&model](const crow::request& req, const string &text) {
+//         double prediction = model.predict(text);
+//         return crow::response{to_string(prediction)};
+//     });
+//
+//     app.port(18080).multithreaded().run();
 
     if (const char* varEnv = getenv("VAR_TEXT")) {
         string t = varEnv;
@@ -65,7 +64,7 @@ int main() {
 
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = end - start;
-    cout << "Время выполнения: " << duration.count() << " секунд" << std::endl;
+    cout << duration.count();
 
     return 0;
 }
